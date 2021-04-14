@@ -514,6 +514,12 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCallSuffix(YalParser.CallSuffixContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link YalParser#overridenMethods}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOverridenMethods(YalParser.OverridenMethodsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link YalParser#valueArguments}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -610,6 +616,12 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMultiLineStringLiteral(YalParser.MultiLineStringLiteralContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link YalParser#escapedLineStringLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEscapedLineStringLiteral(YalParser.EscapedLineStringLiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link YalParser#lineStringContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -633,6 +645,18 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMultiLineStringExpression(YalParser.MultiLineStringExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#escapedLineStringContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEscapedLineStringContent(YalParser.EscapedLineStringContentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#escapedLineStringExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#lambdaLiteral}.
 	 * @param ctx the parse tree

@@ -64,7 +64,7 @@ foo() = when (a) {
 }
 
 //CallWithManyLambdas
-a = f({{{}}})
+a = f(@a {{{}}})
 a = f({}) 
 a = (f)({{{}}}) 
 a = (f)<A>({{{}}}) 
@@ -1042,3 +1042,10 @@ arr[##]
 a = some?.nullable ?: other
 a: BoolOrWhatever = some?.nullable ?: other?.alsoNullable ?: false
 a ?:= other     // if a is null then a = other otherwise nothing
+
+//StringLiterals
+a = "i am some random \t\n text"
+b = m"I should be :
+- multi lined text
+- ez pz"
+c = @"C:\unescaped\stairway\to\file"

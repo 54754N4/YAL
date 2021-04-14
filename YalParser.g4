@@ -402,8 +402,13 @@ navigationSuffix
     ;
 
 callSuffix
-    : typeArguments? valueArguments
+    : typeArguments? valueArguments			// function call
+    | typeArguments? valueArguments? overridenMethods
     ;
+
+overridenMethods
+	: LCURL NL*  NL* RCURL
+	;
 
 valueArguments
     : LPAREN NL* RPAREN
@@ -485,16 +490,21 @@ literalConstant
 stringLiteral
     : lineStringLiteral
     | multiLineStringLiteral
+    | escapedLineStringLiteral
     ;
 
 lineStringLiteral
     : QUOTE_OPEN (lineStringContent | lineStringExpression)* QUOTE_CLOSE
     ;
 
-multiLineStringLiteral // why is lineStringLiteral here? there is no escaping in multiline strings
-    : TRIPLE_QUOTE_OPEN (multiLineStringContent | multiLineStringExpression | MultiLineStringQuote)* TRIPLE_QUOTE_CLOSE
+multiLineStringLiteral
+    : M_QUOTE_OPEN (multiLineStringContent | multiLineStringExpression | MultiLineStringQuote)* M_QUOTE_CLOSE
     ;
 
+escapedLineStringLiteral
+	: AT_QUOTE_OPEN (escapedLineStringContent | escapedLineStringExpression)* AT_QUOTE_CLOSE
+	;
+	
 lineStringContent
     : LineStrText
     | LineStrEscapedChar
@@ -514,6 +524,15 @@ multiLineStringContent
 multiLineStringExpression
     : MultiLineStrExprStart NL* expression NL* RCURL
     ;
+
+escapedLineStringContent
+	: EscapedLineStrText 
+	| EscapedLineStrRef
+	;
+
+escapedLineStringExpression
+	: EscapedLineStrExprStart expression RCURL
+	;
 
 lambdaLiteral // anonymous functions?
     : LCURL NL* statements NL* RCURL

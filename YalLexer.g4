@@ -73,8 +73,8 @@ COLONCOLON: '::' ;
 DOUBLE_SEMICOLON: ';;' ;
 HASH: '#' ;
 AT: '@' ;
-AT_WS: AT (Hidden | NL) ;
-/* Disambiguating ? without spaces and with spaces (sometimes required) */
+
+
 QUEST_NO_WS: '?' ;
 QUEST_WS: '?' Hidden ;
 LANGLE: '<' ;
@@ -176,7 +176,8 @@ EXPECT: 'expect' ;
 ACTUAL: 'actual' ;
 
 QUOTE_OPEN: '"' -> pushMode(LineString) ;
-TRIPLE_QUOTE_OPEN: '"""' -> pushMode(MultiLineString) ;
+M_QUOTE_OPEN: 'm"' -> pushMode(MultiLineString) ;
+AT_QUOTE_OPEN: '@"' -> pushMode(EscapedLineString) ;
 
 RealLiteral
     : FloatLiteral
@@ -201,7 +202,7 @@ DoubleLiteral
     ;
 
 LongLiteral
-    : (IntegerLiteral | HexLiteral | BinLiteral) 'L'
+    : (IntegerLiteral | HexLiteral | BinLiteral) [lL]
     ;
 
 IntegerLiteral
@@ -406,7 +407,8 @@ Inside_EQEQ: EQEQ  -> type(EQEQ) ;
 Inside_EQEQEQ: EQEQEQ  -> type(EQEQEQ) ;
 Inside_SINGLE_QUOTE: SINGLE_QUOTE  -> type(SINGLE_QUOTE) ;
 Inside_QUOTE_OPEN: QUOTE_OPEN -> pushMode(LineString), type(QUOTE_OPEN) ;
-Inside_TRIPLE_QUOTE_OPEN: TRIPLE_QUOTE_OPEN -> pushMode(MultiLineString), type(TRIPLE_QUOTE_OPEN) ;
+Inside_M_QUOTE_OPEN: M_QUOTE_OPEN -> pushMode(MultiLineString), type(M_QUOTE_OPEN) ;
+Inside_AT_QUOTE_OPEN: AT_QUOTE_OPEN -> pushMode(EscapedLineString), type(AT_QUOTE_OPEN) ;
 
 Inside_FUN: FUN -> type(FUN) ;
 Inside_OBJECT: OBJECT -> type(OBJECT) ;
@@ -508,8 +510,8 @@ LineStrExprStart
 
 mode MultiLineString ;
 
-TRIPLE_QUOTE_CLOSE
-    : MultiLineStringQuote? '"""' -> popMode
+M_QUOTE_CLOSE
+    : MultiLineStringQuote? '"' -> popMode
     ;
 
 MultiLineStringQuote
@@ -529,3 +531,21 @@ MultiLineStrExprStart
     ;
 
 MultiLineNL: NL -> type(NL) ;
+
+mode EscapedLineString ;
+
+AT_QUOTE_CLOSE
+	: '"' -> popMode
+	;
+	
+EscapedLineStrRef
+	: FieldIdentifier
+	;
+	
+EscapedLineStrText
+	:  ~('"' | '$')+ | '$'	// can't escape in escaped string xD duh.. 
+	;
+	
+EscapedLineStrExprStart
+	: '${' -> pushMode(DEFAULT_MODE)
+	;

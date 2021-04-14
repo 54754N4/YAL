@@ -847,6 +847,16 @@ public interface YalParserListener extends ParseTreeListener {
 	 */
 	void exitCallSuffix(YalParser.CallSuffixContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link YalParser#overridenMethods}.
+	 * @param ctx the parse tree
+	 */
+	void enterOverridenMethods(YalParser.OverridenMethodsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#overridenMethods}.
+	 * @param ctx the parse tree
+	 */
+	void exitOverridenMethods(YalParser.OverridenMethodsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link YalParser#valueArguments}.
 	 * @param ctx the parse tree
 	 */
@@ -1007,6 +1017,16 @@ public interface YalParserListener extends ParseTreeListener {
 	 */
 	void exitMultiLineStringLiteral(YalParser.MultiLineStringLiteralContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link YalParser#escapedLineStringLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterEscapedLineStringLiteral(YalParser.EscapedLineStringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#escapedLineStringLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitEscapedLineStringLiteral(YalParser.EscapedLineStringLiteralContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link YalParser#lineStringContent}.
 	 * @param ctx the parse tree
 	 */
@@ -1046,6 +1066,26 @@ public interface YalParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMultiLineStringExpression(YalParser.MultiLineStringExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link YalParser#escapedLineStringContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterEscapedLineStringContent(YalParser.EscapedLineStringContentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#escapedLineStringContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitEscapedLineStringContent(YalParser.EscapedLineStringContentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link YalParser#escapedLineStringExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#escapedLineStringExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link YalParser#lambdaLiteral}.
 	 * @param ctx the parse tree

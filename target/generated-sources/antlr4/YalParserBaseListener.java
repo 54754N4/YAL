@@ -1023,6 +1023,18 @@ public class YalParserBaseListener implements YalParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOverridenMethods(YalParser.OverridenMethodsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOverridenMethods(YalParser.OverridenMethodsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterValueArguments(YalParser.ValueArgumentsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1215,6 +1227,18 @@ public class YalParserBaseListener implements YalParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterEscapedLineStringLiteral(YalParser.EscapedLineStringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEscapedLineStringLiteral(YalParser.EscapedLineStringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLineStringContent(YalParser.LineStringContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1258,6 +1282,30 @@ public class YalParserBaseListener implements YalParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMultiLineStringExpression(YalParser.MultiLineStringExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEscapedLineStringContent(YalParser.EscapedLineStringContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEscapedLineStringContent(YalParser.EscapedLineStringContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
