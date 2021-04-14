@@ -1,0 +1,35 @@
+{
+    "name": "yal",
+    "displayName": "YAL",
+    "description": "YAL - Yet Another Language Programming Language",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "semanticHighlighting": true,
+    "contributes": {
+        "languages": [
+            {
+                "id": "yal",
+                "aliases": [
+                    "YAL Programming Language",
+                    "yal"
+                ],
+                "extensions": [
+                    ".yal"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "yal",
+                "scopeName": ".yal",
+                "path": "./syntaxes/yal.tmLanguage.json"
+            }
+        ]
+    }
+}

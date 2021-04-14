@@ -1,0 +1,797 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "YAL Programming Language",
+	"fileTypes": [
+		"yal"
+	],
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"captures": {
+				"1": {
+					"name": "keyword.other.yal"
+				},
+				"2": {
+					"name": "entity.name.package.yal"
+				}
+			},
+			"match": "^\\s*(package)\\b(?:\\s*([^ ;$]+)\\s*)?"
+		},
+		{
+			"include": "#imports"
+		},
+		{
+			"include": "#statements"
+		}
+	],
+	"repository": {
+		"statements": {
+			"patterns": [
+				{
+					"include": "#namespaces"
+				},
+				{
+					"include": "#typedefs"
+				},
+				{
+					"include": "#classes"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#variables"
+				},
+				{
+					"include": "#getters-and-setters"
+				},
+				{
+					"include": "#expressions"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"begin": "/\\*",
+					"captures": {
+						"0": {
+							"name": "punctuation.definition.comment.yal"
+						}
+					},
+					"end": "\\*/",
+					"name": "comment.block.yal"
+				},
+				{
+					"captures": {
+						"1": {
+							"name": "comment.line.double-slash.yal"
+						},
+						"2": {
+							"name": "punctuation.definition.comment.yal"
+						}
+					},
+					"match": "\\s*((//).*$\\n?)"
+				}
+			]
+		},
+		"imports": {
+			"patterns": [
+				{
+					"captures": {
+						"1": {
+							"name": "keyword.other.yal"
+						},
+						"2": {
+							"name": "keyword.other.yal"
+						}
+					},
+					"match": "^\\s*(import)\\s+[^ $]+\\s+(as)?"
+				}
+			]
+		},
+		"namespaces": {
+			"patterns": [
+				{
+					"match": "\\b(namespace)\\b",
+					"name": "keyword.other.yal"
+				},
+				{
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#statements"
+						}
+					]
+				}
+			]
+		},
+		"types": {
+			"patterns": [
+				{
+					"match": "\\b(Nothing|Any|Unit|String|CharSequence|Int|Boolean|Char|Long|Double|Float|Short|Byte|dynamic)\\b",
+					"name": "storage.type.buildin.yal"
+				},
+				{
+					"match": "\\b(IntArray|BooleanArray|CharArray|LongArray|DoubleArray|FloatArray|ShortArray|ByteArray)\\b",
+					"name": "storage.type.buildin.array.yal"
+				},
+				{
+					"begin": "\\b(Array|Collection|List|Map|Set|MutableList|MutableMap|MutableSet|Sequence)<\\b",
+					"beginCaptures": {
+						"1": {
+							"name": "storage.type.buildin.collection.yal"
+						}
+					},
+					"end": ">",
+					"patterns": [
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#keywords"
+						}
+					]
+				},
+				{
+					"begin": "\\w+<",
+					"end": ">",
+					"patterns": [
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#keywords"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#statements"
+						}
+					]
+				},
+				{
+					"begin": "\\(",
+					"end": "\\)",
+					"patterns": [
+						{
+							"include": "#types"
+						}
+					]
+				},
+				{
+					"match": "(->)",
+					"name": "keyword.operator.declaration.yal"
+				}
+			]
+		},
+		"generics": {
+			"patterns": [
+				{
+					"begin": "(:)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.declaration.yal"
+						}
+					},
+					"end": "(?=,|>)",
+					"patterns": [
+						{
+							"include": "#types"
+						}
+					]
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"match": "\\w+",
+					"name": "storage.type.generic.yal"
+				}
+			]
+		},
+		"typedefs": {
+			"begin": "(?=\\s*(?:alias))",
+			"end": "(?=$)",
+			"patterns": [
+				{
+					"match": "\\b(type)\\b",
+					"name": "keyword.other.yal"
+				},
+				{
+					"begin": "<",
+					"end": ">",
+					"patterns": [
+						{
+							"include": "#generics"
+						}
+					]
+				},
+				{
+					"include": "#expressions"
+				}
+			]
+		},
+		"classes": {
+			"begin": "(?<!::)(?=\\b(?:companion|class|object|interface)\\b)",
+			"end": "(?=$|\\})",
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"begin": "\\b(companion\\s*)?(class|object|interface)\\b",
+					"beginCaptures": {
+						"1": {
+							"name": "storage.modifier.yal"
+						},
+						"2": {
+							"name": "storage.modifier.yal"
+						}
+					},
+					"end": "(?=<|\\{|\\(|:|$)",
+					"patterns": [
+						{
+							"include": "#comments"
+						},
+						{
+							"match": "\\w+",
+							"name": "entity.name.type.class.yal"
+						}
+					]
+				},
+				{
+					"begin": "<",
+					"end": ">",
+					"patterns": [
+						{
+							"include": "#generics"
+						}
+					]
+				},
+				{
+					"begin": "\\(",
+					"end": "\\)",
+					"patterns": [
+						{
+							"include": "#parameters"
+						}
+					]
+				},
+				{
+					"begin": "(:)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.declaration.yal"
+						}
+					},
+					"end": "(?={|$)",
+					"patterns": [
+						{
+							"match": "\\w+",
+							"name": "entity.other.inherited-class.yal"
+						},
+						{
+							"begin": "\\(",
+							"end": "\\)",
+							"patterns": [
+								{
+									"include": "#expressions"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#statements"
+						}
+					]
+				}
+			]
+		},
+		"variables": {
+			"begin": "(?=\\s*\\b(?:[a-z]+)\\b)",
+			"end": "(?=:|=|(\\b(by)\\b)|$)",
+			"patterns": [
+				{
+					"begin": "\\b(var|val)\\b",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.yal"
+						}
+					},
+					"end": "(?=:|=|(\\b(by)\\b)|$)",
+					"patterns": [
+						{
+							"begin": "<",
+							"end": ">",
+							"patterns": [
+								{
+									"include": "#generics"
+								}
+							]
+						},
+						{
+							"captures": {
+								"2": {
+									"name": "entity.name.variable.yal"
+								}
+							},
+							"match": "([\\.<\\?>\\w]+\\.)?(\\w+)"
+						}
+					]
+				},
+				{
+					"begin": "(:)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.declaration.yal"
+						}
+					},
+					"end": "(?==|$)",
+					"patterns": [
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#getters-and-setters"
+						}
+					]
+				},
+				{
+					"begin": "\\b(by)\\b",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.yal"
+						}
+					},
+					"end": "(?=$)",
+					"patterns": [
+						{
+							"include": "#expressions"
+						}
+					]
+				},
+				{
+					"begin": "(=)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.assignment.yal"
+						}
+					},
+					"end": "(?=$)",
+					"patterns": [
+						{
+							"include": "#expressions"
+						},
+						{
+							"include": "#getters-and-setters"
+						}
+					]
+				}
+			]
+		},
+		"getters-and-setters": {
+			"patterns": [
+				{
+					"begin": "\\b(get)\\b\\s*\\(\\s*\\)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.yal"
+						}
+					},
+					"end": "\\}|(?=\\bset\\b)|$",
+					"patterns": [
+						{
+							"begin": "(=)",
+							"beginCaptures": {
+								"1": {
+									"name": "keyword.operator.assignment.yal"
+								}
+							},
+							"end": "(?=$|\\bset\\b)",
+							"patterns": [
+								{
+									"include": "#expressions"
+								}
+							]
+						},
+						{
+							"begin": "\\{",
+							"end": "\\}",
+							"patterns": [
+								{
+									"include": "#expressions"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "\\b(set)\\b\\s*(?=\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.yal"
+						}
+					},
+					"end": "\\}|(?=\\bget\\b)|$",
+					"patterns": [
+						{
+							"begin": "\\(",
+							"end": "\\)",
+							"patterns": [
+								{
+									"include": "#parameters"
+								}
+							]
+						},
+						{
+							"begin": "(=)",
+							"beginCaptures": {
+								"1": {
+									"name": "keyword.operator.assignment.yal"
+								}
+							},
+							"end": "(?=$|\\bset\\b)",
+							"patterns": [
+								{
+									"include": "#expressions"
+								}
+							]
+						},
+						{
+							"begin": "\\{",
+							"end": "\\}",
+							"patterns": [
+								{
+									"include": "#expressions"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		"functions": {
+			"begin": "(?=\\s*\\b(?:fun)\\b)",
+			"end": "(?=$|\\})",
+			"patterns": [
+				{
+					"begin": "\\b(fun)\\b",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.yal"
+						}
+					},
+					"end": "(?=\\()",
+					"patterns": [
+						{
+							"begin": "<",
+							"end": ">",
+							"patterns": [
+								{
+									"include": "#generics"
+								}
+							]
+						},
+						{
+							"captures": {
+								"2": {
+									"name": "entity.name.function.yal"
+								}
+							},
+							"match": "([\\.<\\?>\\w]+\\.)?(\\w+)"
+						}
+					]
+				},
+				{
+					"begin": "\\(",
+					"end": "\\)",
+					"patterns": [
+						{
+							"include": "#parameters"
+						}
+					]
+				},
+				{
+					"begin": "(:)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.declaration.yal"
+						}
+					},
+					"end": "(?={|=|$)",
+					"patterns": [
+						{
+							"include": "#types"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"end": "(?=\\})",
+					"patterns": [
+						{
+							"include": "#statements"
+						}
+					]
+				},
+				{
+					"begin": "(=)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.assignment.yal"
+						}
+					},
+					"end": "(?=$)",
+					"patterns": [
+						{
+							"include": "#expressions"
+						}
+					]
+				}
+			]
+		},
+		"parameters": {
+			"patterns": [
+				{
+					"begin": "(:)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.declaration.yal"
+						}
+					},
+					"end": "(?=,|\\)|=)",
+					"patterns": [
+						{
+							"include": "#types"
+						}
+					]
+				},
+				{
+					"begin": "(=)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.declaration.yal"
+						}
+					},
+					"end": "(?=,|\\))",
+					"patterns": [
+						{
+							"include": "#expressions"
+						}
+					]
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"match": "\\w+",
+					"name": "variable.parameter.function.yal"
+				}
+			]
+		},
+		"expressions": {
+			"patterns": [
+				{
+					"begin": "\\(",
+					"end": "\\)",
+					"patterns": [
+						{
+							"include": "#expressions"
+						}
+					]
+				},
+				{
+					"include": "#types"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#constants"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#keywords"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"begin": "\"\"\"",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.yal"
+						}
+					},
+					"end": "\"\"\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.yal"
+						}
+					},
+					"name": "string.quoted.third.yal",
+					"patterns": [
+						{
+							"match": "(\\$\\w+|\\$\\{[^\\}]+\\})",
+							"name": "variable.parameter.template.yal"
+						},
+						{
+							"match": "\\\\.",
+							"name": "constant.character.escape.yal"
+						}
+					]
+				},
+				{
+					"begin": "\"",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.yal"
+						}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.yal"
+						}
+					},
+					"name": "string.quoted.double.yal",
+					"patterns": [
+						{
+							"match": "(\\$\\w+|\\$\\{[^\\}]+\\})",
+							"name": "variable.parameter.template.yal"
+						},
+						{
+							"match": "\\\\.",
+							"name": "constant.character.escape.yal"
+						}
+					]
+				},
+				{
+					"begin": "'",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.yal"
+						}
+					},
+					"end": "'",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.yal"
+						}
+					},
+					"name": "string.quoted.single.yal",
+					"patterns": [
+						{
+							"match": "\\\\.",
+							"name": "constant.character.escape.yal"
+						}
+					]
+				},
+				{
+					"begin": "`",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.yal"
+						}
+					},
+					"end": "`",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.yal"
+						}
+					},
+					"name": "string.quoted.single.yal"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"match": "\\b(true|false|null|this|super)\\b",
+					"name": "constant.language.yal"
+				},
+				{
+					"match": "\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)([LlFf])?\\b",
+					"name": "constant.numeric.yal"
+				},
+				{
+					"match": "\\b([A-Z][A-Z0-9_]+)\\b",
+					"name": "constant.other.yal"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"match": "\\b(public|private|protected|abstract|final|sealed|enum|open|attribute|annotation|override|inline|vararg|in|out|internal|data|tailrec|operator|infix|const|yield|typealias|typeof|reified|suspend)\\b",
+					"name": "storage.modifier.yal"
+				},
+				{
+					"match": "\\b(try|catch|finally|throw)\\b",
+					"name": "keyword.control.catch-exception.yal"
+				},
+				{
+					"match": "\\b(if|else|while|for|do|return|when|where|break|continue)\\b",
+					"name": "keyword.control.yal"
+				},
+				{
+					"match": "\\b(in|is|!in|!is|as|as\\?|assert)\\b",
+					"name": "keyword.operator.yal"
+				},
+				{
+					"match": "(==|!=|===|!==|<=|>=|<|>)",
+					"name": "keyword.operator.comparison.yal"
+				},
+				{
+					"match": "(=)",
+					"name": "keyword.operator.assignment.yal"
+				},
+				{
+					"match": "(::)",
+					"name": "keyword.operator.yal"
+				},
+				{
+					"match": "(:)",
+					"name": "keyword.operator.declaration.yal"
+				},
+				{
+					"match": "\\b(by)\\b",
+					"name": "keyword.other.by.yal"
+				},
+				{
+					"match": "(\\?\\.)",
+					"name": "keyword.operator.safenav.yal"
+				},
+				{
+					"match": "(\\.)",
+					"name": "keyword.operator.dot.yal"
+				},
+				{
+					"match": "(\\?:)",
+					"name": "keyword.operator.elvis.yal"
+				},
+				{
+					"match": "(\\-\\-|\\+\\+)",
+					"name": "keyword.operator.increment-decrement.yal"
+				},
+				{
+					"match": "(\\+=|\\-=|\\*=|\\/=|%=|<<=|>>=|&&=|\\|\\|=|&=|\\|=|\\?:=)",
+					"name": "keyword.operator.arithmetic.assign.yal"
+				},
+				{
+					"match": "(\\.\\.)",
+					"name": "keyword.operator.range.yal"
+				},
+				{
+					"match": "(\\-|\\+|\\*|\\/|%)",
+					"name": "keyword.operator.arithmetic.yal"
+				},
+				{
+					"match": "(!|&|\\||&&|\\|\\|)",
+					"name": "keyword.operator.logical.yal"
+				},
+				{
+					"match": "(;)",
+					"name": "punctuation.terminator.yal"
+				}
+			]
+		}
+	},
+	"scopeName": "source.yal"
+}

@@ -1,0 +1,1044 @@
+/**
+ * Made of test data from https://github.com/JetBrains/kotlin/tree/master/compiler/testData/psi
+ */
+
+//AnonymousInitializer
+class Foo {
+
+    init {
+        foo()
+        c = f
+    }
+
+}
+
+//BabySteps
+class Runnable<a,a>(a : doo = 0) : foo(d=0), bar by x, bar {
+
+}
+
+//ByClauses
+class A : b by a {
+    companion object {}
+}
+class A : b by a + b() * 5 {
+    companion object {}
+}
+class A : b by (a) {
+    companion object {}
+}
+class A : b by (a) {
+    companion object {}
+}
+class A : b by a[a] {
+    companion object {}
+}
+class A : b by a(a) {
+    companion object {}
+}
+class A : b by object {
+    f() = a( {})
+} {
+    companion object {}
+}
+
+//When
+foo() {
+    when (a) {
+        a.foo -> a
+        a.foo() -> a
+        a.foo<T> -> a
+        a.foo<T>(a) -> a
+        a.foo<T>(a, d) -> a
+        else -> a
+    }
+}
+
+foo() = when (a) {
+    a.foo -> a
+    a.foo() -> a
+    a.foo<T> -> a
+    a.foo<T>(a) -> a
+    a.foo<T>(a, d) -> a
+    else -> a
+}
+
+//CallWithManyLambdas
+a = f({{{}}})
+a = f({}) 
+a = (f)({{{}}}) 
+a = (f)<A>({{{}}}) 
+
+
+//CollectionLiterals
+test() {
+    []
+    [1]
+    [1, 2]
+    [[]]
+    [[1]]
+    [1, []]
+    [[], 1]
+    [[], [1, []]]
+    [1,
+    2]
+    [1,
+    [2]]
+}
+
+
+//CommentsBindingInLambda
+la1 = {
+    // start
+    // start 1
+    foo()
+
+    // middle
+
+    foo()
+
+    // end
+}
+
+la2 = {
+    /**/
+}
+
+la3 = {
+    /** */
+}
+
+la4 = {
+    /** Should be under block */
+
+    /** Should be under property */
+    some = 1
+}
+
+la5 = {
+    /** */
+    /** */
+}
+
+la6 = /*1*/ {/*2*/ a /*3*/ -> /*4*/
+}
+
+la7 = {/**/}
+
+foo() {}
+
+
+//CommentsBindingInStatementBlock
+test() {
+    if (true) {/*start-end*/}
+
+    if (true) {
+        /*start-end*/
+    }
+
+    if (true) {
+        /*start*/
+        /*end*/
+    }
+
+    if (true) {
+        /*start*/
+
+        /** doc */
+        a = 12
+
+        /*end*/
+    }
+}
+
+
+//Constructors
+class foo {
+}
+
+public class foo() : Bar
+private class foo<T>() : Bar
+
+
+//destructuringInLambdas
+foo() {
+    a1.filter({ (x, y) -> })
+    a2.filter({ (x) -> })
+    a3.filter({ z, (x, y) -> })
+    a4.filter({ (x, y), z -> })
+    a5.filter({ q, (x, y), z -> })
+    a6.filter({ (x, y), (z, w) -> })
+
+    a7.filter({ (x, y): Type, (z: Type), (w, u: T) : V -> foo7() })
+}
+
+
+//DoubleColonWhitespaces
+tests() {
+    a:: b
+    a ::b
+    a :: b
+
+    a?:: b
+    a ?::b
+    a ?:: b
+    a? ::b
+    a ? :: b
+    a ? ? :: b
+}
+
+breakLine() {
+    a?
+    ::b
+}
+
+
+//DynamicReceiver
+dynamic.foo()
+dynamic?.foo()
+dynamic.foo: Int
+dynamic?.foo: Int
+
+foo: dynamic.() -> Unit
+
+// testing look-ahead with comments and whitespace
+
+dynamic . foo()
+dynamic
+        .foo()
+dynamic// line-comment
+        .foo()
+dynamic/*
+*/.foo()
+
+
+//DynamicTypes
+foo(
+        p1: dynamic,
+        p2: @a dynamic,
+        p3: foo.dynamic,
+        p4: dynamic.foo,
+        p5: dynamic<T>,
+        p6: Foo<dynamic>,
+        p7: dynamic?,
+        p8: (dynamic) -> dynamic
+): dynamic
+
+
+//EnumCommas
+enum class Color {
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST,
+    ;
+}
+
+
+//EnumEntrySemicolonInlineMember
+enum class My {
+    FIRST;
+
+    inline foo() {}
+}
+
+
+//EnumEntrySemicolonMember
+enum class My {
+    FIRST;
+
+    foo() {}
+}
+
+
+//EnumIn
+enum class Foo {
+    `in`
+}
+
+
+//EnumInline
+enum class My {
+    `inline`
+}
+
+
+//Enums
+enum class Color(rgb : Int) {
+    RED(0xFF000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+
+    // the end
+}
+
+
+//EnumShortCommas
+enum class Color(rgb : Int) {
+    RED(0xFF000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF),
+    ;
+}
+
+
+//EnumShortWithOverload
+enum class Color(rgb : Int) {
+    RED(0xFF000) {
+        override foo(): Int { return 1 }
+    },
+    GREEN(0x00FF00) {
+        override foo(): Int { return 2 }
+    },
+    BLUE(0x0000FF) {
+        override foo(): Int { return 3 }
+    };
+
+    abstract foo(): Int
+}
+
+
+//EOLsInComments
+foo() {
+    a
+    + b
+    a
+    /** */+ b
+    a
+    /* */+ b
+    a /*
+  */  + b
+    a
+    /*
+    */  + b
+    a /**
+     */  + b
+    a //
+    + b
+    a //
+    + b
+}
+
+
+//EOLsOnRollback
+foo() {
+    class foo
+    foo()
+    class foo
+
+    alias x = t
+    r
+
+    @a foo = 4
+
+    1
+    @a f
+}
+
+
+//ExtensionsWithQNReceiver
+java.util.Map<*,*>.size : Int
+
+java.util.Map<*,*>.size() : Int = 1
+
+
+//FloatingPointLiteral
+array = array<Any>(
+        1,
+        1.0,
+        1e1,
+        1.0e1,
+        1e-1,
+        1.0e-1,
+        1F,
+        1.0F,
+        1e1F,
+        1.0e1F,
+        1e-1F,
+        1.0e-1F,
+        1f,
+        1.0f,
+        1e1f,
+        1.0e1f,
+        1e-1f,
+        1.0e-1f,
+        .1_1,
+        3.141_592,
+        1e1__3_7,
+        1_0f,
+        1e1_2f,
+        2_2.0f,
+        .3_3f,
+        3.14_16f,
+        6.022___137e+2_3f
+)
+
+
+//FunctionCalls
+foo() {
+    f(a)
+    g<bar>(a)
+    h<baz>
+    (a)
+    i({s})
+    j;
+    {s}
+    k({
+        s
+    })
+    l(a, {
+        s
+    })
+    m(a);
+    {
+        s
+    }
+    n<a>(a, {
+        s
+    })
+    o<a>(a);
+    {
+        s
+    }
+    p(qux<a, b>)
+    q(quux<a, b>(a))
+    r(corge<a, 1, b>(a))
+    s(grault<a, (1 + 2), b>(a))
+    t(garply<a, 1 + 2, b>(a))
+    u(waldo<a, 1 * 2, b>(a))
+    v(fred<a, *, b>(a))
+    w(plugh<a, "", b>(a))
+    xyzzy<*>()
+    1._foo()
+    1.__foo()
+    1_1._foo()
+    1._1foo()
+    1._1_foo()
+}
+
+
+//FunctionLiterals
+foo() {
+    {}
+
+    {foo}
+
+    {a -> a}
+
+    {x, y -> 1}
+
+    {a: b -> f}
+    {a: b, c -> f}
+    {a: b, c: d -> f}
+    {a: (Int) -> Unit, c: (Int) -> Unit -> f}
+
+    {a: ((Int) -> Unit) ->}
+    {a: A -> }
+}
+
+
+//FunctionTypes
+alias f =  (@[a] a) -> b
+alias f =  (a) -> b
+alias f =  () -> @[x] b
+alias f =  () -> Unit
+
+alias f =  (a : @[a] a) -> b
+alias f =  (a : a) -> b
+alias f =  () -> b
+alias f =  () -> Unit
+
+alias f =  (a : @[a] a, foo, x : bar) -> b
+alias f =  (foo, a : a) -> b
+alias f =  (foo, a :  (a) -> b) -> b
+alias f =  (foo, a :  (a) -> b) ->  () -> Unit
+
+alias f =  T.() -> Unit
+
+alias f = @[a]  T.() -> Unit
+
+//IfWithPropery
+a = if(1) {f = a;a} else {null}
+a = if(1) {
+    f = a;
+    a
+} else {null}
+
+
+//Inner
+class Outer {
+    inner class Inner
+}
+
+
+//Interface
+interface Foo {
+    f()
+    a
+}
+
+
+//LocalDeclarations
+foo() {
+    1
+    @a abstract class foof {}
+    abstract @a class foof {}
+
+    foo = 5
+    @a foo = 4
+    alias f =  T.() -> Unit
+}
+
+
+z = System.out
+foo() { throw Exception(); }
+
+
+//NamedClassObject
+class A {
+    companion object Companion
+
+    companion object B
+
+    companion object C {}
+
+    companion object
+
+    object C
+}
+
+
+//NewLinesValidOperations
+test() {
+    str = ""
+
+    str
+
+            .length
+
+    str
+
+            ?.length
+
+    str
+
+            as String
+
+    str
+
+            as? String
+
+    str
+
+            ?: foo
+
+    true
+
+            || false
+
+
+    false
+
+            && true
+}
+
+
+//NotIsAndNotIn
+test() {
+    a !is B
+    a !in B
+    !isBoolean(a)
+    !inRange(a)
+}
+
+
+//ObjectLiteralAsStatement
+main(args : Array<String>) {
+    object : Thread() {
+    }.run()
+
+    object {
+    }
+}
+
+
+//PropertyInvokes
+foo() {
+    1._some
+    1.__some
+    1_1._some
+    1._1some
+    1._1_some
+}
+
+
+//QuotedIdentifiers
+@`return` `package`() {
+    `class`()
+}
+
+class `$`
+class `$$`
+class ` `
+class `1`
+
+
+//SemicolonAfterIf
+foo(a: Int): Int { x = a; y = x++; if (y+1 != x) return -1; return x; }
+
+
+//SimpleClassMembers
+class foo {
+
+    class foo {
+        object foo {
+
+        }
+
+        class Bar {}
+
+        foo()
+
+        x
+
+        f
+
+        alias foo = bar
+    }
+
+    class Bar {
+        object foo {
+            companion object {
+
+            }
+
+            private companion object {
+
+            }
+
+            private companion object : Fooo {
+
+            }
+
+            private companion object : Fooo, Bar by foo {
+
+            }
+
+            private companion object : Fooo, Bar by foo, Goo()
+        }
+
+        class Bar {}
+
+        foo()
+
+        x
+
+        f
+
+        alias foo = bar
+    }
+
+    foo()
+
+    x
+
+    f
+
+    alias foo = bar
+
+    companion object {
+
+    }
+
+    private companion object {
+
+    }
+
+    private companion object : Fooo {
+
+    }
+
+    private companion object : Fooo, Bar by foo {
+
+    }
+
+    private companion object : Fooo, Bar by foo, Goo()
+
+
+}
+
+
+//SimpleExpressions
+a(
+        a : foo = Unit,
+        a : foo = 10,
+        a : foo = 0x10,
+        a : foo = '1',
+        a : foo = "dsf",
+        a : foo = """dsf""",
+        a : foo = 10.0,
+        a : foo = 10.dbl,
+        a : foo = 10.flt,
+        a : foo = 10.0.dbl,
+        a : foo = 10.lng,
+        a : foo = true,
+        a : foo = false,
+        a : foo = null,
+        a : foo = this,
+        a : foo = super<sdf>,
+        a : foo = (10),
+        a : foo = Triple(10, "A", 0xf),
+        a : foo = Foo(bar),
+        a : foo = Foo<A>(bar),
+        a : foo = Foo(),
+        a : foo = Foo<bar>(),
+        a : foo = object : Foo{},
+        a : foo = throw Foo(),
+        a : foo = return 10,
+        a : foo = break,
+        a : foo = break@la,
+        a : foo = continue,
+        a : foo = continue@la,
+        a : foo = 10,
+        a : foo = 10,
+        a : foo = 10,
+        a : foo = 10,
+        a : foo = 0xffffffff.lng
+) {
+    return 10
+    return
+    10
+    break
+    la@
+    break@la
+    continue
+    la@
+    continue@la
+}
+
+
+//SimpleModifiers
+abstract
+open
+open
+annotation
+override
+open
+abstract
+private
+protected
+public
+internal
+class Bar<
+in
+out
+T> {
+    abstract
+    open
+    enum
+    open
+    annotation
+    override
+    open
+    abstract
+    private
+    protected
+    public
+    internal
+    lazy
+}
+
+
+//SoftKeywords
+public protected private internal
+abstract
+open
+open
+annotation
+override
+open
+abstract
+private
+protected
+public
+internal
+suspend
+class Bar<abstract, in enum : T, out open
+        > (a : B) : A by b {
+    public protected private internal abstract
+    open
+    enum
+    open
+    annotation
+    override
+    open
+    abstract
+    private
+    protected
+    public
+    internal
+    lazy
+    wraps
+    import
+    where
+    by
+    get
+    set
+    public
+    private
+    protected
+    internal
+    field
+    property
+    receiver
+    param
+    setparam
+    lateinit
+    const
+    suspend
+    coroutine
+        get() = a
+        set(S : s) {}
+
+
+    public protected private internal
+    abstract  () : abstract
+    open   () : open
+    enum      () : enum
+    open      () : open
+    annotation () : annotation
+    override  () : override
+    open   () : open
+    abstract  () : abstract
+    private   () : private
+    protected () : protected
+    public    () : public
+    internal  () : internal
+    lazy      () : lazy
+    wraps     () : wraps
+    import    () : import
+    where     () : where
+    by        () : by
+    get       () : get
+    set       () : set
+    public    () : public
+    private   () : private
+    protected () : protected
+    internal  () : internal
+    field  () : field
+    property  () : property
+    receiver  () : receiver
+    param  () : param
+    setparam  () : setparam
+    lateinit  () : lateinit
+    const  () : const
+
+    test(
+            abstract  : t,
+            open   : t,
+            enum      : t,
+            open      : t,
+            annotation : t,
+            override  : t,
+            open   : t,
+            abstract  : t,
+            private   : t,
+            protected : t,
+            public    : t,
+            internal  : t,
+            lazy      : t,
+            wraps     : t,
+            import    : t,
+            where     : t,
+            by        : t,
+            get       : t,
+            set       : t,
+            public    : t,
+            private   : t,
+            protected : t,
+            internal  : t,
+            field     : t,
+            property  : t,
+            receiver  : t,
+            param     : t,
+            setparam    : t,
+            lateinit  : t,
+            const     : t,
+            public protected private internal abstract
+            open
+            enum
+            open
+            annotation
+            override
+            open
+            abstract
+            private
+            protected
+            public
+            internal open : t
+
+    )
+
+}
+
+
+class F(foo : bar,
+        abstract  : t,
+        open   : t,
+        enum      : t,
+        open      : t,
+        annotation : t,
+        override  : t,
+        open   : t,
+        abstract  : t,
+        private   : t,
+        protected : t,
+        public    : t,
+        internal  : t,
+        lazy      : t,
+        wraps     : t,
+        import    : t,
+        where     : t,
+        by        : t,
+        get       : t,
+        set       : t,
+        public    : t,
+        private   : t,
+        protected : t,
+        internal  : t,
+        field     : t,
+        property  : t,
+        receiver  : t,
+        param     : t,
+        setparam    : t,
+        lateinit  : t,
+        const     : t,
+        public protected private internal abstract
+        open
+        enum
+        open
+        annotation
+        override
+        open
+        abstract
+        private
+        protected
+        public
+        internal open : b
+) {
+
+}
+
+
+//SoftKeywordsInTypeArguments
+class Foo<out abstract, out out> {}
+
+f() {
+
+//  Foo<out out>
+    Foo<out Int>
+
+}
+
+
+//TraitConstructor
+interface TestTrait(a: Int, b: String, c: Double)
+interface TestTrait()
+
+
+//TypeAlias
+alias foo = bar
+alias foo<T> = bar
+alias foo<T : foo> = bar
+alias foo<A, B> = bar
+alias foo<A, B : A> = bar
+
+alias foo = bar ;
+alias foo<T> = bar ;
+
+alias foo<T : foo> = bar ;
+alias foo<A, B> = bar ;
+alias foo<A, B : A> = bar ;
+
+
+//TypeConstraints
+class foo<T> where T : T {
+
+}
+
+
+//TypeModifiers
+p1: suspend a
+p2: suspend (a) -> a
+p3: suspend (a) -> suspend a
+p4: suspend a.() -> a
+p4a: @a a.() -> a
+p5: (suspend a).() -> a
+p5a: (@a a).() -> a
+p6: a<in suspend a>
+p7: a<out suspend @a a>
+p8: a<out @a suspend @a a>
+p9: a<out @[a] suspend @[a] a>
+p10: suspend a<a>
+p11: suspend @a a
+p12: @a suspend a
+p13: @a suspend @a a
+p14: @[a] suspend @[a] a
+p15: suspend (suspend (() -> Unit)) -> Unit
+
+@a @a a.f1() {}
+(@a a.(a) -> a).f2() {}
+
+//WhenExpression
+when (x) {
+    in 1..10 -> print("x is in the range")
+    in validNumbers -> print("x is valid")
+    !in 10..20 -> print("x is outside the range")
+    else -> print("none of the above")
+}
+
+//ForLoop
+for (i=0, c : Char = 'c'; i<10; i++, y += someFunc())
+    for (i in 1..10..2)
+        System.out.println(i)
+
+//TryCatch
+try {
+    1+2         // do some shit here
+} catch (e : Exception1, Exception2) {
+    System.err.println("Amazing error handling")
+} finally {
+    WhenFinished.executeOnEnd()
+}
+
+try 1+2  
+catch (e : Exception1, Exception2) 
+    System.err.println("Amazing error handling")
+finally WhenFinished.executeOnEnd()
+
+//ListComprehension
+a1 = [for (i in start..end..step) i]
+
+//ListSplicing
+a1 = arr[-2]          
+a2 = array[2#7]
+a21 = arr[start#end#step]
+a3 = array[-1#-10#-2]
+a5 = arr[#n]            // take n first elements
+a6 = arr[-n#]           // n last
+a7 = arr[#-n]           // all but n last
+a8 = arr[##n]           // every n
+reversed = arr[##-1]
+arr[-1#-1#-1]
+arr[#-1#-1]
+arr[-1##-1]
+arr[-1#-1#]
+arr[##-1]
+arr[-1##]
+arr[#-1#]
+arr[##]
+
+//NullCoalescingOperatorAndAssigment
+a = some?.nullable ?: other
+a: BoolOrWhatever = some?.nullable ?: other?.alsoNullable ?: false
+a ?:= other     // if a is null then a = other otherwise nothing
