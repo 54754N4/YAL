@@ -16,4 +16,4 @@ This is just the `front-end` of a three-phases compiler for now.
 - added list comprehensions
 - added list splicing (using `#` instead of `:` because can conflict with `::` reference operator)
 - added null-coalescing/elvis assignment operator `?:=`
-- added multiple vararg params (has to be separated by `;` if more than one in a single function declaration)
+- added multiple variable arity function parameters (Note: have to be separated by `;` if more than one in a single function declaration)
