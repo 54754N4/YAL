@@ -1044,8 +1044,10 @@ a: BoolOrWhatever = some?.nullable ?: other?.alsoNullable ?: false
 a ?:= other     // if a is null then a = other otherwise nothing
 
 //StringLiterals
-a = "i am some random \t\n text"
-b = m"I should be :
+a = "i am some ${abcd} random \t\n text"
+b = m"I should be $title:
 - multi lined text
 - ez pz"
-c = @"C:\unescaped\stairway\to\file"
+
+heaven = "file"
+c = @"C:\unescaped\stairway\to\$heaven"
