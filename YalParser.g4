@@ -3,7 +3,7 @@ parser grammar YalParser;
 options { tokenVocab = YalLexer; }
 
 @header {
-package generated;
+package yal.generated;
 }
 
 program
@@ -271,7 +271,7 @@ functionTypeParameters
     ;
 
 typeConstraints
-    : 'where' NL* typeConstraint (NL* COMMA NL* typeConstraint)*
+    : WHERE NL* typeConstraint (NL* COMMA NL* typeConstraint)*
     ;
 
 typeConstraint
@@ -288,10 +288,10 @@ statements
 
 statement
     : (label | annotation)*
-    ( declaration
+    ( loopStatement
     | assignment
-    | loopStatement
-    | expression)
+    | expression
+    | declaration)
     ;
 
 declaration
@@ -754,14 +754,12 @@ prefixUnaryOperator
     | SUB
     | ADD
     | excl
-    | I
     ;
 
 postfixUnaryOperator
     : INCR
     | DECR
     | EXCL_NO_WS excl
-    | I
     ;
 
 memberAccessOperator
@@ -852,12 +850,12 @@ annotation
 
 singleAnnotation
     : annotationUseSiteTarget NL* COLON NL* unescapedAnnotation
-    | NL* '@' unescapedAnnotation
+    | NL* AT unescapedAnnotation
     ;
 
 multiAnnotation
     : annotationUseSiteTarget NL* COLON NL* LSQUARE unescapedAnnotation+ RSQUARE
-    | '@' LSQUARE unescapedAnnotation+ RSQUARE
+    | AT LSQUARE unescapedAnnotation+ RSQUARE
     ;
 
 annotationUseSiteTarget
@@ -917,6 +915,8 @@ simpleIdentifier
     | ACTUAL
     | CONST
     | SUSPEND
+	| I
+	| E 
     ;
 
 identifier

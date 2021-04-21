@@ -2,10 +2,6 @@ lexer grammar YalLexer;
 
 import Unicodes;
 
-@header {
-package generated;
-}
-
 ShebangLine
     : '#!' ~[\r\n]*
     ;
@@ -81,7 +77,7 @@ COLONCOLON: '::' ;
 DOUBLE_SEMICOLON: ';;' ;
 HASH: '#' ;
 AT: '@' ;
-I: [iI] ;
+I: 'I' ;
 E: [eE] ;
 CIS: 'cis' ;
 

@@ -5,6 +5,10 @@
  */
 lexer grammar Unicodes;
 
+@header {
+package yal.generated;
+}
+
 UNICODE_CLASS_LL:
 	'\u0061'..'\u007A' |
 	'\u00B5' |

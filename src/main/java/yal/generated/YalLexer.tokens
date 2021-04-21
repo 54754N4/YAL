@@ -241,6 +241,7 @@ ExpansionLineStrExprStart=194
 ';;'=53
 '#'=54
 '@'=55
+'I'=56
 'cis'=58
 '?'=59
 '<'=61

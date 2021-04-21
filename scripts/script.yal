@@ -673,7 +673,6 @@ class foo {
 
 }
 
-
 //SimpleExpressions
 a(
         a : foo = Unit,
@@ -681,7 +680,7 @@ a(
         a : foo = 0x10,
         a : foo = '1',
         a : foo = "dsf",
-        a : foo = """dsf""",
+        a : foo = m"dsf",
         a : foo = 10.0,
         a : foo = 10.dbl,
         a : foo = 10.flt,
@@ -722,7 +721,6 @@ a(
     continue@la
 }
 
-
 //SimpleModifiers
 abstract
 open
@@ -754,202 +752,9 @@ T> {
     lazy
 }
 
-
-//SoftKeywords
-public protected private internal
-abstract
-open
-open
-annotation
-override
-open
-abstract
-private
-protected
-public
-internal
-suspend
-class Bar<abstract, in enum : T, out open
-        > (a : B) : A by b {
-    public protected private internal abstract
-    open
-    enum
-    open
-    annotation
-    override
-    open
-    abstract
-    private
-    protected
-    public
-    internal
-    lazy
-    wraps
-    import
-    where
-    by
-    get
-    set
-    public
-    private
-    protected
-    internal
-    field
-    property
-    receiver
-    param
-    setparam
-    lateinit
-    const
-    suspend
-    coroutine
-        get() = a
-        set(S : s) {}
-
-
-    public protected private internal
-    abstract  () : abstract
-    open   () : open
-    enum      () : enum
-    open      () : open
-    annotation () : annotation
-    override  () : override
-    open   () : open
-    abstract  () : abstract
-    private   () : private
-    protected () : protected
-    public    () : public
-    internal  () : internal
-    lazy      () : lazy
-    wraps     () : wraps
-    import    () : import
-    where     () : where
-    by        () : by
-    get       () : get
-    set       () : set
-    public    () : public
-    private   () : private
-    protected () : protected
-    internal  () : internal
-    field  () : field
-    property  () : property
-    receiver  () : receiver
-    param  () : param
-    setparam  () : setparam
-    lateinit  () : lateinit
-    const  () : const
-
-    test(
-            abstract  : t,
-            open   : t,
-            enum      : t,
-            open      : t,
-            annotation : t,
-            override  : t,
-            open   : t,
-            abstract  : t,
-            private   : t,
-            protected : t,
-            public    : t,
-            internal  : t,
-            lazy      : t,
-            wraps     : t,
-            import    : t,
-            where     : t,
-            by        : t,
-            get       : t,
-            set       : t,
-            public    : t,
-            private   : t,
-            protected : t,
-            internal  : t,
-            field     : t,
-            property  : t,
-            receiver  : t,
-            param     : t,
-            setparam    : t,
-            lateinit  : t,
-            const     : t,
-            public protected private internal abstract
-            open
-            enum
-            open
-            annotation
-            override
-            open
-            abstract
-            private
-            protected
-            public
-            internal open : t
-
-    )
-
-}
-
-
-class F(foo : bar,
-        abstract  : t,
-        open   : t,
-        enum      : t,
-        open      : t,
-        annotation : t,
-        override  : t,
-        open   : t,
-        abstract  : t,
-        private   : t,
-        protected : t,
-        public    : t,
-        internal  : t,
-        lazy      : t,
-        wraps     : t,
-        import    : t,
-        where     : t,
-        by        : t,
-        get       : t,
-        set       : t,
-        public    : t,
-        private   : t,
-        protected : t,
-        internal  : t,
-        field     : t,
-        property  : t,
-        receiver  : t,
-        param     : t,
-        setparam    : t,
-        lateinit  : t,
-        const     : t,
-        public protected private internal abstract
-        open
-        enum
-        open
-        annotation
-        override
-        open
-        abstract
-        private
-        protected
-        public
-        internal open : b
-) {
-
-}
-
-
-//SoftKeywordsInTypeArguments
-class Foo<out abstract, out out> {}
-
-f() {
-
-//  Foo<out out>
-    Foo<out Int>
-
-}
-
-
 //TraitConstructor
 interface TestTrait(a: Int, b: String, c: Double)
-interface TestTrait()
+fun interface TestTrait()
 
 
 //TypeAlias
@@ -1060,5 +865,13 @@ c = @"C:\unescaped\stairway\to\$heaven"
 
 //StringExpansions
 expansion = b"{a, b{001..003}}"
-end = 'z', step = 1
+end = 'z'
+step = 1
 templated : String = b"{a..$end..${step+1}}"
+
+//Complex
+c : Complex = 1 + 2I
+c1 = a + I(b-1)
+c2 = 1 + I
+c3 = a e** b
+c4 = a cis b

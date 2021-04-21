@@ -1,6 +1,6 @@
 // Generated from YalParser.g4 by ANTLR 4.9.1
 
-package generated;
+package yal.generated;
 
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
