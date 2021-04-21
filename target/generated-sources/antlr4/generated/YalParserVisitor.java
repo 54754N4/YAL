@@ -1,6 +1,7 @@
-package yal;
-
 // Generated from YalParser.g4 by ANTLR 4.9.1
+
+package generated;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -12,17 +13,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link YalParser#kotlinFile}.
+	 * Visit a parse tree produced by {@link YalParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitKotlinFile(YalParser.KotlinFileContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link YalParser#script}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitScript(YalParser.ScriptContext ctx);
+	T visitProgram(YalParser.ProgramContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#fileAnnotation}.
 	 * @param ctx the parse tree
@@ -36,12 +31,6 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPackageHeader(YalParser.PackageHeaderContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link YalParser#importList}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitImportList(YalParser.ImportListContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link YalParser#importHeader}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -53,12 +42,6 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitImportAlias(YalParser.ImportAliasContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link YalParser#topLevelObject}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTopLevelObject(YalParser.TopLevelObjectContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#classDeclaration}.
 	 * @param ctx the parse tree
@@ -486,6 +469,12 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPostfixUnaryExpression(YalParser.PostfixUnaryExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link YalParser#complexExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComplexExpression(YalParser.ComplexExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link YalParser#postfixUnarySuffix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -528,17 +517,29 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCallSuffix(YalParser.CallSuffixContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link YalParser#annotatedLambda}.
+	 * Visit a parse tree produced by {@link YalParser#overridenMethods}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAnnotatedLambda(YalParser.AnnotatedLambdaContext ctx);
+	T visitOverridenMethods(YalParser.OverridenMethodsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#valueArguments}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitValueArguments(YalParser.ValueArgumentsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#valueArgument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValueArgument(YalParser.ValueArgumentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#annotatedLambda}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnnotatedLambda(YalParser.AnnotatedLambdaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#typeArguments}.
 	 * @param ctx the parse tree
@@ -564,12 +565,6 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTypeProjectionModifier(YalParser.TypeProjectionModifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link YalParser#valueArgument}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitValueArgument(YalParser.ValueArgumentContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link YalParser#primaryExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -587,6 +582,18 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCollectionLiteral(YalParser.CollectionLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#listComprehension}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListComprehension(YalParser.ListComprehensionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#listSplicing}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListSplicing(YalParser.ListSplicingContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#literalConstant}.
 	 * @param ctx the parse tree
@@ -612,6 +619,18 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMultiLineStringLiteral(YalParser.MultiLineStringLiteralContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link YalParser#escapedLineStringLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEscapedLineStringLiteral(YalParser.EscapedLineStringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#expansionLineStringLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpansionLineStringLiteral(YalParser.ExpansionLineStringLiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link YalParser#lineStringContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -635,6 +654,30 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMultiLineStringExpression(YalParser.MultiLineStringExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#escapedLineStringContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEscapedLineStringContent(YalParser.EscapedLineStringContentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#escapedLineStringExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#expansionLineStringContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpansionLineStringContent(YalParser.ExpansionLineStringContentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#expansionLineStringExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpansionLineStringExpression(YalParser.ExpansionLineStringExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#lambdaLiteral}.
 	 * @param ctx the parse tree
@@ -779,6 +822,18 @@ public interface YalParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCallableReference(YalParser.CallableReferenceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#conjunctionOperator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConjunctionOperator(YalParser.ConjunctionOperatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link YalParser#disjunctionOperator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDisjunctionOperator(YalParser.DisjunctionOperatorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link YalParser#assignmentAndOperator}.
 	 * @param ctx the parse tree

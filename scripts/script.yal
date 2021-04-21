@@ -1,3 +1,9 @@
+import kotlin.reflect.KClass
+
+annotation class Ann(arg1: KClass<*>, arg2: KClass<out Any>)
+
+@Ann(String::class, Int::class) class MyClass
+
 /**
  * Made of test data from https://github.com/JetBrains/kotlin/tree/master/compiler/testData/psi
  */
@@ -1051,3 +1057,8 @@ b = m"I should be $title:
 
 heaven = "file"
 c = @"C:\unescaped\stairway\to\$heaven"
+
+//StringExpansions
+expansion = b"{a, b{001..003}}"
+end = 'z', step = 1
+templated : String = b"{a..$end..${step+1}}"

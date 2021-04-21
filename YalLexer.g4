@@ -2,6 +2,10 @@ lexer grammar YalLexer;
 
 import Unicodes;
 
+@header {
+package generated;
+}
+
 ShebangLine
     : '#!' ~[\r\n]*
     ;
@@ -36,6 +40,7 @@ LSQUARE: '[' -> pushMode(Inside);
 RSQUARE: ']' -> popMode;
 LCURL: '{' -> pushMode(DEFAULT_MODE);
 RCURL: '}' -> popMode;
+POW: '**' ; 
 MULT: '*' ;
 MOD: '%' ;
 DIV: '/' ;
@@ -47,6 +52,7 @@ AND_AND: '&&' ;
 AND: '&' ;
 OR_OR: '||' ;
 OR: '|' ;
+XOR: '^' ;
 LSHIFT : '<<' ;
 RSHIFT : '>>' ;
 EXCL_WS: '!' Hidden;
@@ -59,12 +65,14 @@ SUB_ASSIGNMENT: '-=' ;
 MULT_ASSIGNMENT: '*=' ;
 DIV_ASSIGNMENT: '/=' ;
 MOD_ASSIGNMENT: '%=' ;
-LSHIFT_ASSIGNMENT: '<<=' ;
-RSHIFT_ASSIGNMENT: '>>=' ;
+POW_ASSIGNMENT: '**=' ;
 AND_ASSIGNMENT: '&&=' ;
 OR_ASSIGNMENT: '||=' ;
 AND_BIT_ASSIGNMENT : '&=' ;
 OR_BIT_ASSIGNMENT : '|=' ;
+XOR_ASSIGNMENT: '^=' ;
+LSHIFT_ASSIGNMENT: '<<=' ;
+RSHIFT_ASSIGNMENT: '>>=' ; 
 ELVIS_ASSIGMENT : '?:=' ;  
 ARROW: '->' ;
 DOUBLE_ARROW: '=>' ;
@@ -73,7 +81,9 @@ COLONCOLON: '::' ;
 DOUBLE_SEMICOLON: ';;' ;
 HASH: '#' ;
 AT: '@' ;
-
+I: [iI] ;
+E: [eE] ;
+CIS: 'cis' ;
 
 QUEST_NO_WS: '?' ;
 QUEST_WS: '?' Hidden ;
@@ -178,6 +188,7 @@ ACTUAL: 'actual' ;
 QUOTE_OPEN: '"' -> pushMode(LineString) ;
 M_QUOTE_OPEN: 'm"' -> pushMode(MultiLineString) ;
 AT_QUOTE_OPEN: '@"' -> pushMode(EscapedLineString) ;
+EXPANSION_QUOTE_OPEN: 'b"' -> pushMode(ExpansionLineString) ;
 
 RealLiteral
     : FloatLiteral
@@ -302,6 +313,9 @@ fragment IdentifierOrSoftKey
     | WHERE
     | EXPECT
     | ACTUAL
+    | I
+    | E
+    | CIS
     //strong keywords
     | CONST
     | SUSPEND
@@ -355,6 +369,7 @@ Inside_RCURL: RCURL -> popMode, type(RCURL) ;
 Inside_DOT: DOT -> type(DOT) ;
 Inside_COMMA: COMMA  -> type(COMMA) ;
 Inside_MULT: MULT -> type(MULT) ;
+Inside_POW: POW  -> type(POW) ;
 Inside_MOD: MOD  -> type(MOD) ;
 Inside_DIV: DIV -> type(DIV) ;
 Inside_ADD: ADD  -> type(ADD) ;
@@ -363,6 +378,7 @@ Inside_INCR: INCR  -> type(INCR) ;
 Inside_DECR: DECR  -> type(DECR) ;
 Inside_AND_AND: AND_AND  -> type(AND_AND) ;
 Inside_AND: AND  -> type(AND) ;
+Inside_XOR: XOR  -> type(XOR) ;
 Inside_OR_OR: OR_OR  -> type(OR_OR) ;
 Inside_OR: OR -> type(OR) ;
 Inside_LSHIFT : LSHIFT -> type(LSHIFT) ;
@@ -374,6 +390,7 @@ Inside_SEMICOLON: SEMICOLON  -> type(SEMICOLON) ;
 Inside_ASSIGNMENT: ASSIGNMENT  -> type(ASSIGNMENT) ;
 Inside_AND_ASSIGNMENT: AND_ASSIGNMENT -> type(AND_ASSIGNMENT) ;
 Inside_OR_ASSIGNMENT: OR_ASSIGNMENT -> type(OR_ASSIGNMENT) ;
+Inside_XOR_ASSIGNMENT: XOR_ASSIGNMENT -> type(XOR_ASSIGNMENT) ;
 Inside_LSHIFT_ASSIGNMENT: LSHIFT_ASSIGNMENT -> type(LSHIFT_ASSIGNMENT) ;
 Inside_RSHIFT_ASSIGNMENT: RSHIFT_ASSIGNMENT -> type(RSHIFT_ASSIGNMENT) ;
 Inside_ADD_ASSIGNMENT: ADD_ASSIGNMENT  -> type(ADD_ASSIGNMENT) ;
@@ -406,9 +423,14 @@ Inside_AS_SAFE: AS_SAFE  -> type(AS_SAFE) ;
 Inside_EQEQ: EQEQ  -> type(EQEQ) ;
 Inside_EQEQEQ: EQEQEQ  -> type(EQEQEQ) ;
 Inside_SINGLE_QUOTE: SINGLE_QUOTE  -> type(SINGLE_QUOTE) ;
+Inside_I: I -> type(I) ;
+Inside_E: E -> type(E) ;
+Inside_CIS: CIS -> type(CIS) ;
+
 Inside_QUOTE_OPEN: QUOTE_OPEN -> pushMode(LineString), type(QUOTE_OPEN) ;
 Inside_M_QUOTE_OPEN: M_QUOTE_OPEN -> pushMode(MultiLineString), type(M_QUOTE_OPEN) ;
 Inside_AT_QUOTE_OPEN: AT_QUOTE_OPEN -> pushMode(EscapedLineString), type(AT_QUOTE_OPEN) ;
+Inside_EXPANSION_QUOTE_OPEN: EXPANSION_QUOTE_OPEN -> pushMode(ExpansionLineString), type(EXPANSION_QUOTE_OPEN) ;
 
 Inside_FUN: FUN -> type(FUN) ;
 Inside_OBJECT: OBJECT -> type(OBJECT) ;
@@ -537,7 +559,7 @@ mode EscapedLineString ;
 AT_QUOTE_CLOSE
 	: '"' -> popMode
 	;
-	
+
 EscapedLineStrRef
 	: FieldIdentifier
 	;
@@ -548,4 +570,22 @@ EscapedLineStrText
 	
 EscapedLineStrExprStart
 	: '${' -> pushMode(DEFAULT_MODE)
+	;
+
+mode ExpansionLineString ;
+
+EXPANSION_QUOTE_CLOSE
+	: '"' -> popMode
+	;
+
+ExpansionLineStrRef
+	: FieldIdentifier					// allows $var 
+	;
+	
+ExpansionLineStrText
+	: ~('"' | '$')+ | '$'
+	;
+
+ExpansionLineStrExprStart
+	: '${' -> pushMode(DEFAULT_MODE)	// allows string interpolation in expansions
 	;

@@ -2,8 +2,12 @@ parser grammar YalParser;
 
 options { tokenVocab = YalLexer; }
 
-script
-   : shebangLine? NL* fileAnnotation* packageHeader importList (statement semis?)* EOF
+@header {
+package generated;
+}
+
+program
+   : shebangLine? NL* fileAnnotation* packageHeader importHeader* (statement semis?)* EOF
     ;
 
 fileAnnotation
@@ -12,10 +16,6 @@ fileAnnotation
 
 packageHeader
     : (PACKAGE identifier semi?)?
-    ;
-
-importList
-    : importHeader*
     ;
 
 importHeader
@@ -366,8 +366,16 @@ unaryPrefix
     ;
 
 postfixUnaryExpression
-    : primaryExpression postfixUnarySuffix*
+    : complexExpression postfixUnarySuffix*
     ;
+
+complexExpression
+	: SUB? (primaryExpression I | I primaryExpression) NL*		// pure imaginary
+	| primaryExpression NL* (ADD|SUB) I NL* primaryExpression?	// std complex
+	| primaryExpression? NL* E POW NL* primaryExpression 		// polar complex
+	| primaryExpression? NL* CIS NL* primaryExpression			// cis complex
+	| primaryExpression
+	;
 
 postfixUnarySuffix
     : postfixUnaryOperator
@@ -398,7 +406,7 @@ indexingSuffix
     ;
 
 navigationSuffix
-    : NL* memberAccessOperator NL* (simpleIdentifier | parenthesizedExpression | 'class')
+    : NL* memberAccessOperator NL* (simpleIdentifier | parenthesizedExpression | CLASS)
     ;
 
 callSuffix
@@ -439,7 +447,6 @@ typeProjectionModifier
     : varianceModifier NL*
     | annotation
     ;
-
 
 primaryExpression
     : literalConstant
@@ -491,6 +498,7 @@ stringLiteral
     : lineStringLiteral
     | multiLineStringLiteral
     | escapedLineStringLiteral
+    | expansionLineStringLiteral
     ;
 
 lineStringLiteral
@@ -504,7 +512,11 @@ multiLineStringLiteral
 escapedLineStringLiteral
 	: AT_QUOTE_OPEN (escapedLineStringContent | escapedLineStringExpression)* AT_QUOTE_CLOSE
 	;
-	
+
+expansionLineStringLiteral
+	: EXPANSION_QUOTE_OPEN (expansionLineStringContent | expansionLineStringExpression)* EXPANSION_QUOTE_CLOSE
+	;
+
 lineStringContent
     : LineStrText
     | LineStrEscapedChar
@@ -531,10 +543,19 @@ escapedLineStringContent
 	;
 
 escapedLineStringExpression
-	: EscapedLineStrExprStart expression RCURL
+	: EscapedLineStrExprStart NL* expression NL* RCURL
 	;
 
-lambdaLiteral // anonymous functions?
+expansionLineStringContent
+	: ExpansionLineStrText
+	| ExpansionLineStrRef
+	;
+	
+expansionLineStringExpression
+	: ExpansionLineStrExprStart NL* expression NL* RCURL
+	;
+
+lambdaLiteral
     : LCURL NL* statements NL* RCURL
     | LCURL NL* lambdaParameters? NL* ARROW NL* statements NL* RCURL
     ;
@@ -573,7 +594,7 @@ thisExpression
     ;
 
 superExpression
-    : SUPER (LANGLE NL* type_ NL* RANGLE)? ('@' simpleIdentifier)?
+    : SUPER (LANGLE NL* type_ NL* RANGLE)? (AT simpleIdentifier)?
     | SUPER_AT
     ;
 
@@ -675,12 +696,14 @@ assignmentAndOperator
     | MULT_ASSIGNMENT
     | DIV_ASSIGNMENT
     | MOD_ASSIGNMENT
-    | LSHIFT_ASSIGNMENT
-    | RSHIFT_ASSIGNMENT
+    | POW_ASSIGNMENT
     | AND_ASSIGNMENT
     | OR_ASSIGNMENT
     | AND_BIT_ASSIGNMENT
     | OR_BIT_ASSIGNMENT
+    | XOR_ASSIGNMENT
+    | LSHIFT_ASSIGNMENT
+    | RSHIFT_ASSIGNMENT
     | ELVIS_ASSIGMENT
     ;
 
@@ -714,6 +737,8 @@ multiplicativeOperator
     : MULT
     | DIV
     | MOD
+    | XOR
+    | POW
     | LSHIFT
     | RSHIFT
     ;
@@ -729,12 +754,14 @@ prefixUnaryOperator
     | SUB
     | ADD
     | excl
+    | I
     ;
 
 postfixUnaryOperator
     : INCR
     | DECR
     | EXCL_NO_WS excl
+    | I
     ;
 
 memberAccessOperator

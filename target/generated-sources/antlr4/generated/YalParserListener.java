@@ -1,4 +1,7 @@
 // Generated from YalParser.g4 by ANTLR 4.9.1
+
+package generated;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -7,15 +10,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface YalParserListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link YalParser#script}.
+	 * Enter a parse tree produced by {@link YalParser#program}.
 	 * @param ctx the parse tree
 	 */
-	void enterScript(YalParser.ScriptContext ctx);
+	void enterProgram(YalParser.ProgramContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link YalParser#script}.
+	 * Exit a parse tree produced by {@link YalParser#program}.
 	 * @param ctx the parse tree
 	 */
-	void exitScript(YalParser.ScriptContext ctx);
+	void exitProgram(YalParser.ProgramContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link YalParser#fileAnnotation}.
 	 * @param ctx the parse tree
@@ -36,16 +39,6 @@ public interface YalParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPackageHeader(YalParser.PackageHeaderContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link YalParser#importList}.
-	 * @param ctx the parse tree
-	 */
-	void enterImportList(YalParser.ImportListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link YalParser#importList}.
-	 * @param ctx the parse tree
-	 */
-	void exitImportList(YalParser.ImportListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link YalParser#importHeader}.
 	 * @param ctx the parse tree
@@ -777,6 +770,16 @@ public interface YalParserListener extends ParseTreeListener {
 	 */
 	void exitPostfixUnaryExpression(YalParser.PostfixUnaryExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link YalParser#complexExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterComplexExpression(YalParser.ComplexExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#complexExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitComplexExpression(YalParser.ComplexExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link YalParser#postfixUnarySuffix}.
 	 * @param ctx the parse tree
 	 */
@@ -1027,6 +1030,16 @@ public interface YalParserListener extends ParseTreeListener {
 	 */
 	void exitEscapedLineStringLiteral(YalParser.EscapedLineStringLiteralContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link YalParser#expansionLineStringLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpansionLineStringLiteral(YalParser.ExpansionLineStringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#expansionLineStringLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpansionLineStringLiteral(YalParser.ExpansionLineStringLiteralContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link YalParser#lineStringContent}.
 	 * @param ctx the parse tree
 	 */
@@ -1086,6 +1099,26 @@ public interface YalParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link YalParser#expansionLineStringContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpansionLineStringContent(YalParser.ExpansionLineStringContentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#expansionLineStringContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpansionLineStringContent(YalParser.ExpansionLineStringContentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link YalParser#expansionLineStringExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpansionLineStringExpression(YalParser.ExpansionLineStringExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link YalParser#expansionLineStringExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpansionLineStringExpression(YalParser.ExpansionLineStringExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link YalParser#lambdaLiteral}.
 	 * @param ctx the parse tree

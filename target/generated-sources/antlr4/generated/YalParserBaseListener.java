@@ -1,5 +1,8 @@
 // Generated from YalParser.g4 by ANTLR 4.9.1
 
+package generated;
+
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -15,13 +18,13 @@ public class YalParserBaseListener implements YalParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScript(YalParser.ScriptContext ctx) { }
+	@Override public void enterProgram(YalParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScript(YalParser.ScriptContext ctx) { }
+	@Override public void exitProgram(YalParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -46,18 +49,6 @@ public class YalParserBaseListener implements YalParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPackageHeader(YalParser.PackageHeaderContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterImportList(YalParser.ImportListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitImportList(YalParser.ImportListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -939,6 +930,18 @@ public class YalParserBaseListener implements YalParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterComplexExpression(YalParser.ComplexExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComplexExpression(YalParser.ComplexExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPostfixUnarySuffix(YalParser.PostfixUnarySuffixContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1239,6 +1242,18 @@ public class YalParserBaseListener implements YalParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExpansionLineStringLiteral(YalParser.ExpansionLineStringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpansionLineStringLiteral(YalParser.ExpansionLineStringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLineStringContent(YalParser.LineStringContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1306,6 +1321,30 @@ public class YalParserBaseListener implements YalParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEscapedLineStringExpression(YalParser.EscapedLineStringExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpansionLineStringContent(YalParser.ExpansionLineStringContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpansionLineStringContent(YalParser.ExpansionLineStringContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpansionLineStringExpression(YalParser.ExpansionLineStringExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpansionLineStringExpression(YalParser.ExpansionLineStringExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
